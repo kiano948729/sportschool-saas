@@ -1,0 +1,61 @@
+services:
+
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sportschool_backend
+    working_dir: /var/www
+    volumes:
+      - ./backend:/var/www
+    depends_on:
+      - db
+    networks:
+      - sportschool
+
+  nginx:
+    image: nginx:alpine
+    container_name: sportschool_nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - sportschool
+
+  db:
+    image: mysql:8.4
+    container_name: sportschool_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: sportschool
+      MYSQL_USER: sportschool
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - sportschool
+
+  frontend:
+    image: node:22-alpine
+    container_name: sportschool_frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    networks:
+      - sportschool
+
+networks:
+  sportschool:
+
+volumes:
+  db_data:
