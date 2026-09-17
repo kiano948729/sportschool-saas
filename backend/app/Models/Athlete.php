@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-
 class Athlete extends Model
 {
     protected $fillable = [
@@ -16,12 +15,27 @@ class Athlete extends Model
         'phone_number',
         'password',
     ];
+
     protected $hidden = [
         'password',
     ];
-    public function subscriptions(): HasOne
+
+    public function subscriptions(): HasMany
     {
-        return $this->hasOne(Subscription::class);
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function activeSubscription(): HasOne
+    {
+        return $this->hasOne(Subscription::class)
+            ->where('status', 'active');
+    }
+
+    public function hasActiveSubscription(): bool
+    {
+        return $this->subscriptions()
+            ->where('status', 'active')
+            ->exists();
     }
 
     public function accessAttempts(): HasMany
