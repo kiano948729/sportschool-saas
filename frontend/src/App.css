@@ -182,3 +182,127 @@
     border-right-color: var(--border);
   }
 }
+
+.entry-page {
+  min-height: 100svh;
+  display: grid;
+  place-items: start center;
+  padding: 28px 20px 48px;
+  box-sizing: border-box;
+  background-color: #fff;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #fff 0,
+    #fff 27px,
+    #fce5e5 27px,
+    #fce5e5 58px
+  );
+}
+
+.entry-panel {
+  width: min(100%, 286px);
+  text-align: center;
+}
+
+.entry-panel h1 {
+  margin: 0 0 28px;
+  color: #171313;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.access-card {
+  padding: 20px 14px 14px;
+  border: 2px solid rgba(133, 96, 96, 0.22);
+  border-radius: 12px;
+  background: rgba(180, 129, 129, 0.38);
+}
+
+.qr-placeholder {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1.15;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.68);
+  color: #171313;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.request-button {
+  width: 100%;
+  margin-top: 11px;
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.76);
+  color: #171313;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.request-button:hover:not(:disabled) {
+  background: #fff;
+}
+
+.request-button:focus-visible,
+.demo-controls select:focus-visible {
+  outline: 3px solid #2187e8;
+  outline-offset: 2px;
+}
+
+.request-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.demo-controls {
+  display: grid;
+  gap: 6px;
+  margin-top: 24px;
+  color: #493d3d;
+  font-size: 12px;
+  text-align: left;
+}
+
+.demo-controls select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid rgba(92, 62, 62, 0.28);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #171313;
+  font: inherit;
+  font-size: 13px;
+}
+
+.access-message {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.is-granted {
+  background: #d9f2df;
+  color: #175b2b;
+}
+
+.is-denied {
+  background: #f8d8d8;
+  color: #8a2020;
+}
+
+@media (max-width: 420px) {
+  .entry-page {
+    padding-top: 34px;
+  }
+
+  .entry-panel h1 {
+    margin-bottom: 24px;
+  }
+}
